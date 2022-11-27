@@ -33,7 +33,7 @@ const sueldos = [
 ];
 
 const getFamiliar = (id, callback) => {
-    const familiar = familia.find(f => f.id === id)
+    const familiar = familia.find(f => f.id === id)?.nombre;
     
     if (familiar) {
         callback(null, familiar);
@@ -43,12 +43,24 @@ const getFamiliar = (id, callback) => {
     }
 }
 
-getFamiliar(7, (err, familiar) => {
-    if(err) {
-        console.log('ERROR!!');
-        return console.log(err);
+const getSueldo = (id, callback) => {
+    const sueldo = sueldos.find(s => s.id === id)?.sueldo;
+    
+    if (sueldo) {
+        callback(null, sueldo);
     }
+    else {
+        callback(`El sueldo con id ${id} no existe.`);
+    }
+}
 
-    console.log('Familiar existe!');
-    console.log(familiar);
+const id = 4;
+
+getFamiliar(id, (err, familiar) => {
+    if(err) return console.log(`ERROR!! ${err}`);
+    
+    getSueldo(id, (err, sueldo) => {
+        if(err) return console.log(`ERROR!! ${err}`);
+        console.log('Familiar: ', familiar, 'Sueldo: ', sueldo);
+    })
 })
