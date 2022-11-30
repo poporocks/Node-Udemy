@@ -56,8 +56,9 @@ class Busquedas {
 
             const resp = await instancia.get();
             const {weather, main} = resp.data;
+
             return {
-                desc: weather.description,
+                desc: weather[0].description,
                 temp: main.temp,
                 temp_min: main.temp_min,
                 temp_max: main.temp_max
@@ -66,6 +67,10 @@ class Busquedas {
             console.log(error);
             return [];
         }
+    }
+
+    agregarHistorial(lugar = '') {
+        
     }
 }
 
