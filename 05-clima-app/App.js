@@ -19,6 +19,7 @@ const main = async() => {
                 const lugares = await busquedas.buscarCiudad(ciudad);
                 //Seleccionar el lugar
                 const id = await listarlugares(lugares);
+
                 //console.log({id});
                 const lugarSel = lugares.find(l => l.id === id);
                 //Clima

@@ -70,7 +70,7 @@ class Busquedas {
     }
 
     agregarHistorial(lugar = '') {
-        
+        this.historial.unshift(lugar);
     }
 }
 
