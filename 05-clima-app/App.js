@@ -37,9 +37,8 @@ const main = async() => {
                 console.log('¿Cómo está el clima?: ', clima.desc.green);
                 break;
             case 2:
-                await busquedas.leerDB();
-                busquedas.historial.forEach((lugar, i) => {
-                    console.log(`${(i + 1 + '.').green} ${lugar.nombre}`);
+                busquedas.historialCapitalizado.forEach((lugar, i) => {
+                    console.log(`${(i + 1 + '.').green} ${lugar}`);
                 })
                 break;
         }
