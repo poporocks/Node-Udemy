@@ -1,7 +1,9 @@
+const fs = require('fs');
 const axios = require('axios');
 
 class Busquedas {
     historial = ['Culiacán', 'Mazatlán', 'Guadalajara'];
+    dbPath = './db/database.json';
 
     paramsLocationIQ(city = '') {
         return { 
@@ -70,7 +72,37 @@ class Busquedas {
     }
 
     agregarHistorial(lugar = '') {
-        this.historial.unshift(lugar);
+        if(this.historial.includes(lugar.toLowerCase())) return;
+        this.historial.unshift(lugar.toLowerCase());
+        this.guardarDB();
+    }
+
+    guardarDB() {
+        const payload = {
+            historial: this.historial
+        }
+
+        console.log(payload);
+        try{
+            fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+        } catch (err){
+            console.log('catch')
+            throw err;
+        }
+    }
+
+    leerDB() {
+        if (fs.existsSync(this.dbPath)) return;
+
+        try{        
+            const info = fs.readFileSync(this.dbPath, {encoding: 'utf-8'});
+            const data = JSON.parse(info);
+            
+            console.log(data.historial);
+            this.historial = data.historial;
+        } catch (err) {
+            throw err;
+        }
     }
 }
 
