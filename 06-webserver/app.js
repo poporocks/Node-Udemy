@@ -1,9 +1,15 @@
 const express = require('express');
+const hbs = require('hbs');
+
 const app = express();
 const port = 8080
 
+// Implementar handlebars.js (hbs en express)
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
+
 // Servir contenido estático
-app.use(express.static('public/templated-roadtrip/'));
+app.use(express.static('public'));
 
 // app.get('/', (req, res) => {
 //     res.send('Home page');
@@ -14,15 +20,19 @@ app.use(express.static('public/templated-roadtrip/'));
 // });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    //res.sendFile(__dirname + '/public/index.html');
+    res.render('home', {
+        nombre: 'Edgar Lao',
+        titulo: 'Curso de Node'
+    });
 });
 
 app.get('/generic', (req, res) => {
-    res.sendFile(__dirname + '/generic.html');
+    res.sendFile(__dirname + '/public/generic.html');
 });
 
 app.get('/elements', (req, res) => {
-    res.sendFile(__dirname + '/elements.html');
+    res.sendFile(__dirname + '/public/elements.html');
 });
 
 app.get('*', (req, res) => {
