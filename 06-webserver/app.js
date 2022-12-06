@@ -1,8 +1,9 @@
 const express = require('express');
 const hbs = require('hbs');
+require('dotenv').config();
 
 const app = express();
-const port = 8080
+const port = process.env.PORT;
 
 // Implementar handlebars.js (hbs en express)
 app.set('view engine', 'hbs');
@@ -28,12 +29,28 @@ app.get('/', (req, res) => {
 });
 
 app.get('/generic', (req, res) => {
-    res.sendFile(__dirname + '/public/generic.html');
+    //res.sendFile(__dirname + '/public/index.html');
+    res.render('generic', {
+        nombre: 'Edgar Lao',
+        titulo: 'Curso de Node'
+    });
 });
 
 app.get('/elements', (req, res) => {
-    res.sendFile(__dirname + '/public/elements.html');
+    //res.sendFile(__dirname + '/public/index.html');
+    res.render('generic', {
+        nombre: 'Edgar Lao',
+        titulo: 'Curso de Node'
+    });
 });
+
+// app.get('/generic', (req, res) => {
+//     res.sendFile(__dirname + '/public/generic.html');
+// });
+
+// app.get('/elements', (req, res) => {
+//     res.sendFile(__dirname + '/public/elements.html');
+// });
 
 app.get('*', (req, res) => {
     //res.send('404 | Page not found');
