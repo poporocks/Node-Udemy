@@ -15,6 +15,10 @@ const usuariosPut = (req, res = response) => {
     const {id}  = req.params;
     const {password, google,...resto}  = req.body;
 
+    if (password) {
+        
+    }
+
     res.json({
         msg: 'put API - usuariosPut',
         id
