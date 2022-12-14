@@ -13,6 +13,8 @@ const usuariosGet = (req, res = response) => {
 
 const usuariosPut = (req, res = response) => {
     const {id}  = req.params;
+    const {password, google,...resto}  = req.body;
+
     res.json({
         msg: 'put API - usuariosPut',
         id
@@ -24,12 +26,13 @@ const usuariosPost = async (req, res = response) => {
     const usuario = new Usuario({nombre, correo, password, rol});
 
     //Verificar si el correo existe
-    const existeEmail = await Usuario.findOne({correo});
-    if(existeEmail){
-        return res.status(400).json({
-            msg: 'Ese correo ya está registrado.'
-        });
-    }
+    //Se mueve a db-validators.js
+    // const existeEmail = await Usuario.findOne({correo});
+    // if(existeEmail){
+    //     return res.status(400).json({
+    //         msg: 'Ese correo ya está registrado.'
+    //     });
+    // }
 
     //Encriptar la contraseña
     const salt = bcryptjs.genSaltSync(10);
