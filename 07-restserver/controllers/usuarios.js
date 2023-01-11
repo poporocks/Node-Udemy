@@ -1,6 +1,7 @@
 const {response, request} = require('express');
 const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
+const usuario = require('../models/usuario');
 
 const usuariosGet = (req, res = response) => {
     const {q, nombre, apikey} = req.query;
@@ -11,13 +12,16 @@ const usuariosGet = (req, res = response) => {
     });
 }
 
-const usuariosPut = (req, res = response) => {
+const usuariosPut = async (req, res = response) => {
     const {id}  = req.params;
     const {password, google,...resto}  = req.body;
 
     if (password) {
-        
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync(password, salt);
     }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
     res.json({
         msg: 'put API - usuariosPut',
